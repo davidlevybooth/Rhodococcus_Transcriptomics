@@ -1,0 +1,80 @@
+#configs
+
+# Configure environment
+###############################################################################
+threads: 8
+
+#Genomic alignment and quantification
+##############################################################################
+# Genome id to align to. Should match with an entry in "genomes" below.
+genome_id: RREP4
+
+# Dictionary with genomes that can be aligned against.
+genomes:
+  RREP4:
+    url: ftp.ncbi.nlm.nih.gov/genomes/all/GCF/003/004/765/GCF_003004765.2_ASM300476v2
+
+
+#Transcriptome alignment and quantification
+##############################################################################
+
+# List of SRA run ids to analyse
+# RREP4 RNA Reads
+# GEO ACC     SRA ACC     Sample Name
+# GSM3059620 	SRR6877528  Ethylphenol_1
+# GSM3059621 	SRR6877529  Ethylphenol_2
+# GSM3059622 	SRR6877530  Ethylphenol_3
+# GSM3059623 	SRR6877530  Propylguaiacol_1
+# GSM3059624 	SRR6877530  Propylguaiacol_2
+# GSM3059625 	SRR6877530  Propylguaiacol_3
+# GSM3059626 	SRR6877530  Succinate_1
+# GSM3059627 	SRR6877530  Succinate_2
+# GSM3059628 	SRR6877530  Succinate_3
+
+sample_name: ["Ethylphenol_1", "Ethylphenol_2", "Ethylphenol_3",
+             Propylguaiacol_1, Propylguaiacol_2, Propylguaiacol_3,
+             Succinate_1, Succinate_2, Succinate_3]
+
+sample_geo: ["GSM3059620", "GSM3059621", "GSM3059622",
+            "GSM3059623", "GSM3059624", "GSM3059625",
+            "GSM3059626", "GSM3059627", "GSM3059628"]
+
+sample_ids: ["SRR6877528", "SRR6877529","SRR6877530",
+            "SRR6877531", "SRR6877532", "SRR6877533",
+            "SRR6877534", "SRR6877535", "SRR6877536"]
+
+#for testing
+# sample_ids: ["SRR6877529","SRR6877530",
+#             "SRR6877531"]
+
+
+transcriptomes:
+  RREP4:
+    url: ftp.ebi.ac.uk/pub/databases/ena/tsa/public/gg/GGWF01.fasta.gz
+    genome_id: RREP4
+    transcriptome_id: GGWF01
+    kindom: Bacteria
+    phylum: Actinobacteria
+    class: Actinobacteria
+    order: Corynebacteriales
+    family: Nocardiaceae
+    genus: Rhodococcus
+    species: rhodochrous
+    strain: EP4
+    locustag: C6369
+
+
+# Maximal number of reads to retrieve for each run. This is to reduce the time
+# during development and testing
+max_reads: 50000
+
+# Configure Salmon quantification
+# 'salmon_quant'
+# quasi = quasi-mapping (wicked fast)
+# smem = SMEM-based alignment (lightwight)
+salmon_quant: quasi
+
+#select tools
+METHOD: ["featureCounts", "htseq", "salmon"] # "featureCounts", "htseq", #salmon
+ALIGNER: ["bt2"] #"none" "bt2" "bbmap"
+TRIMMER: ["trimmomatic"] #bbduk , "trimmomatic" "untrimmed"
